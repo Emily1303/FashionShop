@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<body>
+<header th:fragment="navbar">
+    <nav class="navbar navbar-expand-lg bg-dark navbar-dark fixed-top text-white">
+        <div class="collapse navbar-collapse">
+            <a class="navbar-brand text-white brand justify-content-between" th:href="@{/}">
+                <img class="image-brand" th:src="@{/images/costume.png}">
+                EllieM
+            </a>
+
+<!--            for the home page - after the security configurations-->
+<!--            <a class="navbar-brand text-white brand" th:href="@{/home}">-->
+<!--                EllieM-->
+<!--            </a>-->
+
+            <ul class="navbar-nav mr-auto justify-content-between ul-style-one">
+                <li class="nav-item">
+                    <a class="nav-link"
+                       th:href="@{/}">ЖЕНИ</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link"
+                       th:href="@{/}">МЪЖЕ</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link"
+                       th:href="@{/}">ДЕЦА</a>
+                </li>
+            </ul>
+
+            <ul class="navbar-nav mr-auto justify-content-between ul-style-two">
+                <li class="nav-item text-white nav-list-search">
+                    <form role="search" id="search-bar">
+                        <input type="search" placeholder="Търсене"
+                               name="search-bar">
+                        <button>
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </button>
+                    </form>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link"
+                       th:href="@{/register}">Регистрация</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link"
+                       th:href="@{/login}">Влизане</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>
+</body>
+</html>
