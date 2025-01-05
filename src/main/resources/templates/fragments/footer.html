@@ -3,8 +3,66 @@
       xmlns:th="http://www.thymeleaf.org">
 
 <body>
-<footer th:fragment="footer" class="bg-dark text-white">
-    <p>This is the footer of the website!</p>
-</footer>
+    <footer th:fragment="footer" class="bg-dark text-white">
+        <div class="container">
+            <nav class="inner-container container-footer d-flex">
+               <div>
+                   <ul class="list-unstyled contacts-footer">
+                       <li class="title"><b>CONTACTS</b></li>
+                       <li>
+                           <span><b>EllieM</b></span>
+                       </li>
+                       <li>
+                           <a class="text-white text-decoration-none" th:href="@{/}">
+                               <i class="fa-regular fa-envelope footer-icon"></i> administration@elliem.com
+                           </a>
+                       </li>
+                       <li>
+                           <span><i class="fa-solid fa-phone footer-icon"></i> +359888123659</span>
+                       </li>
+                   </ul>
+               </div>
+
+                <div>
+                    <ul class="list-unstyled">
+                        <li class="title"><b>SOCIAL MEDIA</b></li>
+                        <ul class="list-unstyled d-flex">
+                            <li>
+                                <a class="text-white text-decoration-none" th:href="@{/}">
+                                    <i class="fa-brands fa-facebook"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="text-white text-decoration-none" th:href="@{/}">
+                                    <i class="fa-brands fa-twitter"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="text-decoration-none text-white" th:href="@{/}">
+                                    <i class="fa-brands fa-instagram"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </ul>
+                </div>
+
+                <div>
+                    <ul class="list-unstyled contacts-footer">
+                        <li class="title"><b>USEFUL LINKS</b></li>
+                        <li>
+                            <a class="text-white text-decoration-none" th:href="@{/}">General Terms</a>
+                        </li>
+                        <li>
+                            <a class="text-decoration-none text-white" th:href="@{/}">Personal Data</a>
+                        </li>
+                        <li>
+                            <a class="text-white text-decoration-none" th:href="@{/}">Delivery</a>
+                        </li>
+                    </ul>
+                </div>
+                <p>© 2025 - EllieM </p>
+            </nav>
+        </div>
+    </footer>
 </body>
 </html>

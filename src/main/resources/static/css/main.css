@@ -1,9 +1,29 @@
-/*body {*/
-/*    font-size: 20px;*/
-/*    display: flex;*/
-/*}*/
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script&family=Inter:wght@500&family=PT+Sans&family=Poppins:wght@300&family=Roboto+Condensed:ital@1&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script&family=Inter:wght@500&family=Oswald:wght@200..700&family=PT+Sans&family=Poppins:wght@300&family=Roboto+Condensed:ital@1&display=swap');
+
+body {
+    font-size: 20px;
+    background-image: linear-gradient(rgba(0,0,0,0),
+    rgba(0,0,0,0)), url("../images/background_one.jpg");
+    background-position: center center;
+    background-repeat: repeat;
+    background-attachment: fixed;
+    display: flex;
+    flex-direction: column;
+    gap: 95px;
+}
+
+main {
+    font-family: "Oswald", serif;
+    height: 600px;
+}
+
+footer {
+    font-family: "Oswald", serif;
+}
 
 .navbar-brand {
+    font-family: "Dancing Script", serif;
     margin-left: 40px;
     margin-right: 60px;
     font-size: 45px;
@@ -13,20 +33,21 @@
 }
 
 .navbar {
+    font-family: "Oswald", serif;
     font-size: 25px;
     font-weight: bolder;
 }
 
 .ul-style-one {
     gap: 20px;
-    margin-right: 100px;
-    margin-left: 110px;
+    margin-right: 140px;
+    margin-left: 140px;
 }
 
 .ul-style-two {
     align-items: center;
     gap: 20px;
-    margin-left: 80px;
+    margin-left: 100px;
     margin-right: 20px;
 }
 
