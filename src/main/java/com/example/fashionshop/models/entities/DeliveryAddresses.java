@@ -30,13 +30,8 @@ public class DeliveryAddresses extends BaseEntity {
 
     @NotNull
     @Positive
-    @Column(name = "cash_on_delivery_tax")
-    private double cashOnDeliveryTax;
-
-    @NotNull
-    @Positive
-    @Column(name = "pay_online_tax")
-    private double payOnlineTax;
+    @Column(name = "tax_of_delivery_company")
+    private double taxOfDeliveryCompany;
 
 //    @OneToMany
 //    private List<User> usersList;
@@ -70,19 +65,11 @@ public class DeliveryAddresses extends BaseEntity {
     }
 
     public void setCashOnDeliveryTax(double cashOnDeliveryTax) {
-        this.cashOnDeliveryTax = cashOnDeliveryTax;
+        this.taxOfDeliveryCompany = cashOnDeliveryTax;
     }
 
     public double getCashOnDeliveryTax() {
-        return cashOnDeliveryTax;
-    }
-
-    public void setPayOnlineTax(double payOnlineTax) {
-        this.payOnlineTax = payOnlineTax;
-    }
-
-    public double getPayOnlineTax() {
-        return payOnlineTax;
+        return taxOfDeliveryCompany;
     }
 
 //    public void setUsersList(List<User> usersList) {

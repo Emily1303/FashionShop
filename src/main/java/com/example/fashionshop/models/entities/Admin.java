@@ -1,17 +1,18 @@
 package com.example.fashionshop.models.entities;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
-@Table(name = "users")
-public class User extends BaseEntity {
+@Table(name = "admins")
+public class Admin extends BaseEntity {
 
     @NotNull
     @Size(min = 3, max = 30, message = "The first name must be between 3 and 30 symbols!")
@@ -25,7 +26,7 @@ public class User extends BaseEntity {
 
     @NotNull
     @Email
-    @Column(name = "email", unique = true)
+    @Column(name = "email")
     private String email;
 
     @NotNull
@@ -40,80 +41,67 @@ public class User extends BaseEntity {
     @ManyToOne
     private Role role;
 
-    @ManyToOne
-    private DeliveryAddresses deliveryAddress;
-
     @NotNull
     @Column(name = "created_on")
     private LocalDateTime createdOn;
 
-//    more columns to add: bought items too
+    public Admin() {
 
-    public User() {
-
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
     }
 
     public String getFirstName() {
         return firstName;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
     public String getLastName() {
         return lastName;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getEmail() {
         return email;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {
         return password;
     }
 
-    public void setMobilePhone(String mobilePhone) {
-        this.mobilePhone = mobilePhone;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
-    }
-
-    public Role getRole() {
-        return role;
-    }
-
-    public void setDeliveryAddress(DeliveryAddresses deliveryAddress) {
-        this.deliveryAddress = deliveryAddress;
-    }
-
-    public DeliveryAddresses getDeliveryAddress() {
-        return deliveryAddress;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getMobilePhone() {
         return mobilePhone;
     }
 
-    public void setCreatedOn(LocalDateTime createdOn) {
-        this.createdOn = createdOn;
+    public void setMobilePhone(String mobilePhone) {
+        this.mobilePhone = mobilePhone;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     public LocalDateTime getCreatedOn() {
         return createdOn;
+    }
+
+    public void setCreatedOn(LocalDateTime createdOn) {
+        this.createdOn = createdOn;
     }
 }

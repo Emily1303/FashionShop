@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{/fragments/head}">
+</head>
+
+<body>
+<header th:replace="~{/fragments/navbar}">
+</header>
+
+<main class="section-container">
+    <div class="container">
+        <div class="inner-container bg-white">
+            <form th:action="@{/add-delivery-address}"
+                  th:method="post"
+                  th:object="${addDeliveryAddressDto}"
+                  class="main-form mx-auto col-md-12 d-flex flex-column">
+
+                <!--                    Here is the drop-down menu with the two names of the delivery companies-->
+                <div class="form-group d-flex flex-column col-md-8 mb-3">
+                    <label for="companyName" class="text-dark form-required">Фирма за доставка</label>
+                    <select id="companyName"
+                            th:field="*{companyName}"
+                            class="form-control" required>
+                        <option value="">- Изберете име на фирма за доставка -</option>
+                        <option th:each="company : ${companyNamesList}"
+                                th:text="${company}"
+                                th:value="${company}">
+                        </option>
+                    </select>
+                    <p th:if="${#fields.hasErrors('companyName')}"
+                       class="errors text-danger" th:errors="*{companyName}">
+                    </p>
+                </div>
+
+                <!--                    Here is the name of the office of the chosen delivery company-->
+                <div class="form-group d-flex flex-column col-md-8 mb-3">
+                    <label for="officeName" class="text-dark form-required">Офис на фирмата</label>
+                    <input id="officeName"
+                           th:field="*{officeName}"
+                           name="officeName" type="text"
+                           placeholder="Напишете името на офиса на фирмата за доставки..." required>
+                    <p th:if="${#fields.hasErrors('officeName')}"
+                       class="errors text-danger" th:errors="*{officeName}">
+                    </p>
+                </div>
+
+                <!--                    Here is the address of the office-->
+                <div class="form-group d-flex flex-column col-md-8 mb-3">
+                    <label for="address" class="text-dark form-required">Адрес на офиса</label>
+                    <input id="address"
+                           th:field="*{address}"
+                           name="address" type="text"
+                           placeholder="Напишете адреса на офиса..." required>
+                    <p th:if="${#fields.hasErrors('address')}"
+                       class="errors text-danger" th:errors="*{address}"
+                    ></p>
+                </div>
+
+                <div class="col col-md-2">
+                    <div class="button-holder">
+                        <input type="submit" class="btn btn-info bg-dark text-white btn-lg"
+                               value="Добавяне на офис за доставки">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>
+
+<footer th:replace="~{/fragments/footer}">
+</footer>
+</body>
+</html>

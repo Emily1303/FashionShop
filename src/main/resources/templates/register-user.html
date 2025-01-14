@@ -12,13 +12,17 @@
 <main class="section-container">
     <div class="container">
         <div class="inner-container bg-white">
-            <form th:method="post"
-                  class=" main-form mx-auto col-md-12 d-flex flex-column">
+            <form th:action="@{/register}"
+                    th:method="post"
+                  th:object="${registerDto}"
+                  class="main-form mx-auto col-md-12 d-flex flex-column">
                 <!--            Here is the first name of the user-->
                 <div class="form-group d-flex flex-column col-md-8 mb-3">
-                    <label class="text-dark form-required">First name</label>
-                    <input name="firstName" type="text"
-                           placeholder="Enter your first name here..." required>
+                    <label for="firstName" class="text-dark form-required">Име</label>
+                    <input id="firstName"
+                           th:field="*{firstName}"
+                           name="firstName" type="text"
+                           placeholder="Напишете името си тук..." required>
                     <p>
                         Error
                     </p>
@@ -26,51 +30,79 @@
 
                 <!--            Here is the last name of the user-->
                 <div class="form-group d-flex flex-column col-md-8 mb-3">
-                    <label class="text-dark form-required">Last name</label>
-                    <input name="lastName" type="text"
-                           placeholder="Enter your last name here..." required>
+                    <label for="lastName" class="text-dark form-required">Фамилия</label>
+                    <input id="lastName"
+                           th:field="*{lastName}"
+                            name="lastName" type="text"
+                           placeholder="Напишете фамилията си тук..." required>
                     <p>Error</p>
                 </div>
 
 <!--                Here is the email of the user-->
                 <div class="form-group d-flex flex-column col-md-8 mb-3">
-                    <label class="text-dark form-required">Email</label>
-                    <input name="email" type="text"
-                    placeholder="Enter your email here..." required>
+                    <label for="email" class="text-dark form-required">Имейл</label>
+                    <input id="email"
+                           th:field="*{email}"
+                            name="email" type="text"
+                    placeholder="Напишете имейла си тук..." required>
                     <p>Error</p>
                 </div>
 
 <!--                Here is the password of the user-->
                 <div class="form-group d-flex flex-column col-md-8 mb-3">
-                    <label class="text-dark form-required">Password</label>
-                    <input name="password" type="text"
-                    placeholder="Enter your password here..." required>
+                    <label for="password" class="text-dark form-required">Парола</label>
+                    <input id="password"
+                           th:field="*{password}"
+                            name="password" type="password"
+                    placeholder="Напишете паролата си тук..." required>
                     <p>Error</p>
                 </div>
 
 <!--                Here is the confirm password-->
                 <div class="form-group d-flex flex-column col-md-8 mb-3">
-                    <label class="text-dark form-required">Confirm password</label>
-                    <input name="confirmPassword" type="text"
-                    placeholder="Enter your password again here..." required>
+                    <label for="confirmPassword" class="text-dark form-required">Потвърждаване на парола</label>
+                    <input id="confirmPassword"
+                           th:field="*{confirmPassword}"
+                            name="confirmPassword" type="password"
+                    placeholder="Потвърдете паролата си..." required>
+                    <p>Error</p>
+                </div>
+
+                <div class="form-group d-flex flex-column col-md-8 mb-3">
+                    <label for="mobilePhone" class="text-dark form-required">Мобилен телефон</label>
+                    <input id="mobilePhone"
+                    th:field="*{mobilePhone}"
+                    name="mobilePhone" type="text"
+                    placeholder="Напишете мобилния си телефон тук..." required>
                     <p>Error</p>
                 </div>
 
 <!--                Here is the name of the delivery company-->
-                <div class="form-group d-flex flex-column col-md-6 mb-3">
-                    <label class="text-dark form-required">Delivery company</label>
-                    <select class="form-control" required>
-                        <option value="">- Select delivery company -</option>
+                <div class="form-group d-flex flex-column col-md-8 mb-3">
+                    <label for="deliveryCompanyName" class="text-dark form-required">Фирма за доставка</label>
+                    <select id="deliveryCompanyName"
+                            th:field="*{deliveryCompanyName}"
+                            class="form-control" required>
+                        <option value="">- Изберете фирма за доставка -</option>
                     </select>
                     <p>Error</p>
                 </div>
 
 <!--                Here is the office of the chosen delivery company-->
                 <div class="form-group d-flex flex-column col-md-8 mb-3">
-                    <label class="text-dark form-required">Office name</label>
-                    <input name="deliveryOfficeName" type="text"
-                    placeholder="Enter the office of the delivery company..." required>
+                    <label for="deliveryOfficeName" class="text-dark form-required">Име на офис</label>
+                    <select id="deliveryOfficeName"
+                            th:field="*{deliveryOfficeName}"
+                            class="form-control" required>
+                        <option value="">- Изберете име на офис -</option>
+                    </select>
                     <p>Error</p>
+                </div>
+
+                <div class="col col-md-2">
+                    <div class="button-holder">
+                        <input type="submit" class="btn btn-info bg-dark text-white btn-lg" value="Регистрация">
+                    </div>
                 </div>
             </form>
         </div>
