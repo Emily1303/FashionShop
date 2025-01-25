@@ -11,8 +11,21 @@
 
 <main class="section-container">
     <div class="container">
-        <div class="inner-container bg-white">
-            This is the page where the products for men are displayed!
+        <div class="inner-container-groups bg-white d-flex flex-row gap-5">
+            <div>
+                <img th:src="@{/images/men.jpg}" alt="men" height="500px">
+            </div>
+            <div>
+                <ul class="list-unstyled">
+                    <li th:each="product : ${menProducts}">
+                        <a class="text-dark text-decoration-none"
+                           th:text="${product.getProductGroupName()}"
+                           th:value="${product.getProductGroupName()}"
+                            th:href="@{/МЪЖЕ/{product}(product=${product.getProductGroupName()})}">
+                        </a>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 </main>

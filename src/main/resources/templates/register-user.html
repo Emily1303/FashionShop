@@ -13,7 +13,7 @@
     <div class="container">
         <div class="inner-container bg-white">
             <form th:action="@{/register}"
-                    th:method="post"
+                    th:method="POST"
                   th:object="${registerDto}"
                   class="main-form mx-auto col-md-12 d-flex flex-column">
                 <!--            Here is the first name of the user-->
@@ -23,8 +23,8 @@
                            th:field="*{firstName}"
                            name="firstName" type="text"
                            placeholder="Напишете името си тук..." required>
-                    <p>
-                        Error
+                    <p th:if="${#fields.hasErrors('firstName')}"
+                        class="errors text-danger" th:errors="*{firstName}">
                     </p>
                 </div>
 
@@ -35,7 +35,9 @@
                            th:field="*{lastName}"
                             name="lastName" type="text"
                            placeholder="Напишете фамилията си тук..." required>
-                    <p>Error</p>
+                    <p th:if="${#fields.hasErrors('lastName')}"
+                        class="errors text-danger" th:errors="*{lastName}">
+                    </p>
                 </div>
 
 <!--                Here is the email of the user-->
@@ -45,7 +47,9 @@
                            th:field="*{email}"
                             name="email" type="text"
                     placeholder="Напишете имейла си тук..." required>
-                    <p>Error</p>
+                    <p th:if="${#fields.hasErrors('email')}"
+                        class="errors text-danger" th:errors="*{email}">
+                    </p>
                 </div>
 
 <!--                Here is the password of the user-->
@@ -55,7 +59,9 @@
                            th:field="*{password}"
                             name="password" type="password"
                     placeholder="Напишете паролата си тук..." required>
-                    <p>Error</p>
+                    <p th:if="${#fields.hasErrors('password')}"
+                        class="errors text-danger" th:errors="*{password}">
+                    </p>
                 </div>
 
 <!--                Here is the confirm password-->
@@ -65,7 +71,9 @@
                            th:field="*{confirmPassword}"
                             name="confirmPassword" type="password"
                     placeholder="Потвърдете паролата си..." required>
-                    <p>Error</p>
+                    <p th:if="${#fields.hasErrors('confirmPassword')}"
+                        class="errors text-danger" th:errors="*{confirmPassword}">
+                    </p>
                 </div>
 
                 <div class="form-group d-flex flex-column col-md-8 mb-3">
@@ -74,29 +82,42 @@
                     th:field="*{mobilePhone}"
                     name="mobilePhone" type="text"
                     placeholder="Напишете мобилния си телефон тук..." required>
-                    <p>Error</p>
+                    <p th:if="${#fields.hasErrors('mobilePhone')}"
+                        class="errors text-danger" th:errors="*{mobilePhone}">
+                    </p>
                 </div>
 
 <!--                Here is the name of the delivery company-->
                 <div class="form-group d-flex flex-column col-md-8 mb-3">
                     <label for="deliveryCompanyName" class="text-dark form-required">Фирма за доставка</label>
                     <select id="deliveryCompanyName"
+                            name="deliveryCompanyName"
                             th:field="*{deliveryCompanyName}"
-                            class="form-control" required>
+                            class="form-control" required
+                            onchange="loadOffices(this.value)">
                         <option value="">- Изберете фирма за доставка -</option>
+                        <option th:each="company : ${companies}"
+                                th:text="${company}"
+                                th:value="${company}">
+                        </option>
                     </select>
-                    <p>Error</p>
+                    <p th:if="${#fields.hasErrors('deliveryCompanyName')}"
+                        class="errors text-danger" th:errors="*{deliveryCompanyName}">
+                    </p>
                 </div>
 
 <!--                Here is the office of the chosen delivery company-->
                 <div class="form-group d-flex flex-column col-md-8 mb-3">
                     <label for="deliveryOfficeName" class="text-dark form-required">Име на офис</label>
                     <select id="deliveryOfficeName"
+                            name="deliveryOfficeName"
                             th:field="*{deliveryOfficeName}"
                             class="form-control" required>
                         <option value="">- Изберете име на офис -</option>
                     </select>
-                    <p>Error</p>
+                    <p th:if="${#fields.hasErrors('deliveryOfficeName')}"
+                        class="errors text-danger" th:errors="*{deliveryOfficeName}">
+                    </p>
                 </div>
 
                 <div class="col col-md-2">
@@ -112,4 +133,26 @@
 <footer th:replace="~{/fragments/footer}">
 </footer>
 </body>
+<script>
+    async function loadOffices(deliveryCompanyName) {
+        if (!deliveryCompanyName) return;
+
+        const response = await fetch(`/api/companies/${deliveryCompanyName}/offices`);
+        const offices = await response.json();
+
+        const officeSelect = document.getElementById("deliveryOfficeName");
+        officeSelect.innerHTML = "";
+        const option = document.createElement("option");
+        option.text = "- Изберете име на офис -";
+        option.value = "- Изберете име на офис -";
+        officeSelect.appendChild(option);
+
+        offices.forEach(office => {
+            const option = document.createElement("option");
+            option.value = office;
+            option.textContent = office;
+            officeSelect.appendChild(option);
+        });
+    }
+</script>
 </html>

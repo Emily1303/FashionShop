@@ -7,8 +7,7 @@ import com.example.fashionshop.repositories.DeliveryAddressesRepository;
 import com.example.fashionshop.services.DeliveryAddressesService;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class DeliveryAddressesServiceImpl implements DeliveryAddressesService {

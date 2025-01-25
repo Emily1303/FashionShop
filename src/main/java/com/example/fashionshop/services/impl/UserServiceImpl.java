@@ -1,18 +1,17 @@
 package com.example.fashionshop.services.impl;
 
 import com.example.fashionshop.models.dtos.forLogic.RegisterDto;
-import com.example.fashionshop.models.entities.Admin;
+import com.example.fashionshop.models.entities.DeliveryAddresses;
 import com.example.fashionshop.models.entities.User;
 import com.example.fashionshop.models.enums.RoleNamesEnum;
+import com.example.fashionshop.repositories.DeliveryAddressesRepository;
+import com.example.fashionshop.repositories.RoleRepository;
 import com.example.fashionshop.repositories.UserRepository;
-import com.example.fashionshop.services.RoleService;
 import com.example.fashionshop.services.UserService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -21,12 +20,16 @@ public class UserServiceImpl implements UserService {
 
     private final PasswordEncoder passwordEncoder;
 
-    private final RoleService roleService;
+    private final RoleRepository roleRepository;
 
-    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder, RoleService roleService) {
+    private final DeliveryAddressesRepository deliveryAddressesRepository;
+
+    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder, RoleRepository roleRepository,
+                           DeliveryAddressesRepository deliveryAddressesRepository) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
-        this.roleService = roleService;
+        this.roleRepository = roleRepository;
+        this.deliveryAddressesRepository = deliveryAddressesRepository;
     }
 
     @Override
@@ -36,7 +39,14 @@ public class UserServiceImpl implements UserService {
         newUser.setFirstName(registerDto.firstName());
         newUser.setLastName(registerDto.lastName());
         newUser.setEmail(registerDto.email());
-        newUser.setPassword(registerDto.password());
+        newUser.setPassword(passwordEncoder.encode(registerDto.password()));
+        newUser.setMobilePhone(registerDto.mobilePhone());
+        DeliveryAddresses deliveryAddress = deliveryAddressesRepository.findByOfficeName(registerDto.deliveryOfficeName()).get();
+        newUser.setDeliveryAddress(deliveryAddress);
+        newUser.setRole(roleRepository.findByRoleName(RoleNamesEnum.USER).get());
+        newUser.setCreatedOn(LocalDateTime.now());
+
+        userRepository.save(newUser);
     }
 
 

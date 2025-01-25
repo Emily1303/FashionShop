@@ -44,6 +44,16 @@ public class AdminServiceImpl implements AdminService {
             firstAdmin.setRole(roleService.findRole(RoleNamesEnum.ADMIN));
             adminsList.add(firstAdmin);
 
+            Admin thirdAdmin = new Admin();
+            thirdAdmin.setFirstName("Svetoslava");
+            thirdAdmin.setLastName("Filipova");
+            thirdAdmin.setEmail("svety.filipova@elliem.com");
+            thirdAdmin.setPassword(passwordEncoder.encode("S2102y"));
+            thirdAdmin.setMobilePhone("+359888765943");
+            thirdAdmin.setCreatedOn(LocalDateTime.now());
+            thirdAdmin.setRole(roleService.findRole(RoleNamesEnum.ADMIN));
+            adminsList.add(thirdAdmin);
+
             Admin secondAdmin = new Admin();
             secondAdmin.setFirstName("Simeon");
             secondAdmin.setLastName("Dimitrov");
@@ -53,16 +63,6 @@ public class AdminServiceImpl implements AdminService {
             secondAdmin.setCreatedOn(LocalDateTime.now());
             secondAdmin.setRole(roleService.findRole(RoleNamesEnum.ADMIN));
             adminsList.add(secondAdmin);
-
-            Admin thirdAdmin = new Admin();
-            thirdAdmin.setFirstName("Ivan");
-            thirdAdmin.setLastName("Petrov");
-            thirdAdmin.setEmail("ivan.petrov3@elliem.com");
-            thirdAdmin.setPassword(passwordEncoder.encode("I2308n"));
-            thirdAdmin.setMobilePhone("+359888769563");
-            thirdAdmin.setCreatedOn(LocalDateTime.now());
-            thirdAdmin.setRole(roleService.findRole(RoleNamesEnum.ADMIN));
-            adminsList.add(thirdAdmin);
 
             adminRepository.saveAll(adminsList);
         }

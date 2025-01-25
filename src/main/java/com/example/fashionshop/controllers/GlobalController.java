@@ -1,6 +1,6 @@
 package com.example.fashionshop.controllers;
 
-import com.example.fashionshop.models.enums.KindsOfProductsEnum;
+import com.example.fashionshop.models.enums.CategoriesEnum;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 public class GlobalController {
 
     @ModelAttribute("kindsEnum")
-    public KindsOfProductsEnum[] kindsOfProducts() {
-        return KindsOfProductsEnum.values();
+    public CategoriesEnum[] kindsOfProducts() {
+        return CategoriesEnum.values();
     }
 
 }

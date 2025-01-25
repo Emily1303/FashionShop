@@ -9,4 +9,5 @@ public interface DeliveryAddressesService {
     void addDeliveryAddress(AddDeliveryAddressDto addDeliveryAddressDto);
 
     List<String> getCompanyNamesList();
+
 }

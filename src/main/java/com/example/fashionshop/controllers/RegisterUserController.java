@@ -1,7 +1,10 @@
 package com.example.fashionshop.controllers;
 
 import com.example.fashionshop.models.dtos.forLogic.RegisterDto;
+import com.example.fashionshop.repositories.DeliveryAddressesRepository;
+import com.example.fashionshop.services.DeliveryAddressesService;
 import com.example.fashionshop.services.UserService;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -16,22 +19,32 @@ public class RegisterUserController {
 
     private final UserService userService;
 
-    public RegisterUserController(UserService userService) {
+    private final DeliveryAddressesService deliveryAddressesService;
+
+    private final DeliveryAddressesRepository deliveryAddressesRepository;
+
+    public RegisterUserController(UserService userService, DeliveryAddressesService deliveryAddressesService,
+                                  DeliveryAddressesRepository deliveryAddressesRepository) {
         this.userService = userService;
+        this.deliveryAddressesService = deliveryAddressesService;
+        this.deliveryAddressesRepository = deliveryAddressesRepository;
     }
 
     @GetMapping
     public String registerUser(Model model) {
+        RegisterDto registerDto = RegisterDto.construct();
 
         if(!model.containsAttribute("registerDto")) {
-            model.addAttribute("registerDto", RegisterDto.construct());
+            model.addAttribute("registerDto", registerDto);
         }
+
+        model.addAttribute("companies", deliveryAddressesRepository.findAllCompanyNames());
 
         return "register-user";
     }
 
     @PostMapping
-    public String register(RegisterDto registerDto, BindingResult bindingResult,
+    public String register(@Valid RegisterDto registerDto, BindingResult bindingResult,
                            RedirectAttributes rAttr) {
 
         if (bindingResult.hasErrors()) {
@@ -42,7 +55,7 @@ public class RegisterUserController {
             return "redirect:/register";
         }
 
-//        if there is not an error in the data in inputs -> a method for register user is needed
+        userService.registerUser(registerDto);
 
         return "redirect:/login";
     }
