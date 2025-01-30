@@ -21,7 +21,7 @@ public class GirlsProductsController {
             model.addAttribute("girlsProducts", productGroupsService.getAllProductGroupsForGirlsCategory());
         }
 
-        return "products-for-girls";
+        return "product-groups-for-girls";
     }
 
     @GetMapping("/home/МОМИЧЕТА")
@@ -31,7 +31,7 @@ public class GirlsProductsController {
             model.addAttribute("girlsProducts", productGroupsService.getAllProductGroupsForGirlsCategory());
         }
 
-        return "products-for-girls";
+        return "product-groups-for-girls";
     }
 
 }

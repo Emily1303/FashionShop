@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ProductGroupsServiceImpl implements ProductGroupsService {
@@ -277,5 +278,15 @@ public class ProductGroupsServiceImpl implements ProductGroupsService {
     public List<ProductGroups> getAllProductGroupsForBoysCategory() {
         return productGroupsRepository.findByCategories(
                 categoriesRepository.findByCategoriesEnum(CategoriesEnum.МОМЧЕТА).get()).get();
+    }
+
+    @Override
+    public ProductGroups findProductGroupInListByName(List<ProductGroups> productGroups, String name) {
+        List<String> productGroupNames = productGroups.stream()
+                .map(ProductGroups::getProductGroupName).collect(Collectors.toList());
+
+        int index = productGroupNames.indexOf(name);
+
+        return productGroups.get(index);
     }
 }

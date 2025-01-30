@@ -1,12 +1,11 @@
 package com.example.fashionshop.models.entities;
 
 import com.example.fashionshop.models.enums.BrandNamesEnum;
+import com.example.fashionshop.models.enums.SizesEnum;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
-
-import java.math.BigInteger;
 
 @Entity
 @Table(name = "products")
@@ -22,9 +21,13 @@ public class Product extends BaseEntity {
     private BrandNamesEnum brandName;
 
     @NotNull
-    @Size(min = 3, max = 13, message = "The GTIN must be from 13 symbols!")
+    @Size(max = 13, message = "The GTIN must be from 13 symbols!")
     @Column(name = "GTIN", unique = true)
     private String GTIN;
+
+    @NotNull
+    @Size(max = 6, message = "The code must be 6 symbols!")
+    private String code;
 
     @NotNull
     @Size(min = 3, max = 20, message = "The color must be between 3 and 20 symbols!")
@@ -38,8 +41,12 @@ public class Product extends BaseEntity {
     private ProductGroups productGroup;
 
     @NotNull
-    @Column(name = "image")
-    private String image;
+    @Column(name = "image_URL_one")
+    private String imageUrlOne;
+
+    @NotNull
+    @Column(name = "image_URL_two")
+    private String imageUrlTwo;
 
     @NotNull
     @Column(name = "description_of_the_product")
@@ -49,15 +56,27 @@ public class Product extends BaseEntity {
     @Column(name = "care_and_ingredients")
     private String careAndIngredients;
 
-    @NotNull
-    @Size(min = 1, max = 6, message = "The size must be between 1 and 6 symbols!")
+    @Enumerated(EnumType.STRING)
     @Column(name = "size")
-    private String size;
+    private SizesEnum size;
+
+    @NotNull
+    @Positive
+    @Column(name = "quantity_of_product")
+    private Integer quantityOfProduct;
 
     @NotNull
     @Positive
     @Column(name = "price_in_BGN")
-    private BigInteger priceInBGN;
+    private Double priceInBGN;
+
+    @NotNull
+    @Column(name = "for_sale")
+    private Boolean forSale;
+
+    @NotNull
+    @Column(name = "discount_percentage")
+    private Double discountPercentage;
 
     public Product() {
 
@@ -87,6 +106,14 @@ public class Product extends BaseEntity {
         this.GTIN = GTIN;
     }
 
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
     public String getColor() {
         return color;
     }
@@ -111,12 +138,20 @@ public class Product extends BaseEntity {
         this.productGroup = productGroup;
     }
 
-    public String getImage() {
-        return image;
+    public String getImageUrlOne() {
+        return imageUrlOne;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setImageUrlOne(String imageUrlOne) {
+        this.imageUrlOne = imageUrlOne;
+    }
+
+    public String getImageUrlTwo() {
+        return imageUrlTwo;
+    }
+
+    public void setImageUrlTwo(String imageUrlTwo) {
+        this.imageUrlTwo = imageUrlTwo;
     }
 
     public String getDescriptionOfTheProduct() {
@@ -135,20 +170,44 @@ public class Product extends BaseEntity {
         this.careAndIngredients = careAndIngredients;
     }
 
-    public String getSize() {
+    public SizesEnum getSize() {
         return size;
     }
 
-    public void setSize(String size) {
+    public void setSize(SizesEnum size) {
         this.size = size;
     }
 
-    public BigInteger getPriceInBGN() {
+    public Integer getQuantityOfProduct() {
+        return quantityOfProduct;
+    }
+
+    public void setQuantityOfProduct(Integer quantityOfProduct) {
+        this.quantityOfProduct = quantityOfProduct;
+    }
+
+    public Double getPriceInBGN() {
         return priceInBGN;
     }
 
-    public void setPriceInBGN(BigInteger priceInBGN) {
+    public void setPriceInBGN(Double priceInBGN) {
         this.priceInBGN = priceInBGN;
+    }
+
+    public Boolean getForSale() {
+        return forSale;
+    }
+
+    public void setForSale(Boolean forSale) {
+        this.forSale = forSale;
+    }
+
+    public Double getDiscountPercentage() {
+        return discountPercentage;
+    }
+
+    public void setDiscountPercentage(Double discountPercentage) {
+        this.discountPercentage = discountPercentage;
     }
 
 }

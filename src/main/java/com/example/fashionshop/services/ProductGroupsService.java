@@ -16,4 +16,6 @@ public interface ProductGroupsService {
 
     List<ProductGroups> getAllProductGroupsForBoysCategory();
 
+    ProductGroups findProductGroupInListByName(List<ProductGroups> productGroups, String name);
+
 }

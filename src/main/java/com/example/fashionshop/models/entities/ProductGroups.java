@@ -13,7 +13,7 @@ public class ProductGroups extends BaseEntity {
     @Column(name = "product_group_name")
     private String productGroupName;
 
-    @ManyToMany
+    @ManyToMany(targetEntity = Categories.class, fetch = FetchType.EAGER)
     private List<Categories> categories;
 
     public ProductGroups() {

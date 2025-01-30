@@ -21,7 +21,7 @@ public class MenProductsController {
             model.addAttribute("menProducts", productGroupsService.getAllProductGroupsForMenCategory());
         }
 
-        return "products-for-men";
+        return "product-groups-for-men";
     }
 
     @GetMapping("/home/МЪЖЕ")
@@ -31,7 +31,7 @@ public class MenProductsController {
             model.addAttribute("menProducts", productGroupsService.getAllProductGroupsForMenCategory());
         }
 
-        return "products-for-men";
+        return "product-groups-for-men";
     }
 
 }

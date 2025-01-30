@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/head}">
+</head>
+
+<body>
+<nav th:replace="~{fragments/navbar}">
+</nav>
+
+<main class="section-container">
+    <div class="container">
+        <div class="inner-container bg-white">
+            <form th:action="@{/add-product}"
+                  th:method="POST"
+                  th:object="${addProductDto}"
+                  class="main-form mx-auto col-md-12 d-flex flex-column">
+
+                <!--                Here is the name of the product-->
+                <div class="form-group d-flex flex-column col-md-8 mb-3">
+                    <label for="productName" class="text-dark form-required">Име на продукта</label>
+                    <input id="productName"
+                           th:field="*{productName}"
+                           name="productName" type="text"
+                           placeholder="Напишете името на продукта тук..." required>
+                    <p th:if="${#fields.hasErrors('productName')}"
+                       class="errors text-danger" th:errors="*{productName}">
+                    </p>
+                </div>
+
+                <!--                Here is a drop-down menu with all brand names-->
+                <div class="form-group d-flex flex-column col-md-8 mb-3">
+                    <label for="brandName" class="text-dark form-required">Име на марка</label>
+                    <select id="brandName"
+                            th:field="*{brandName}"
+                            class="form-control" required>
+                        <option value="">- Изберете име на марка -</option>
+                        <option th:each="brand : ${brandsList}"
+                                th:value="${brand}"
+                                th:text="${brand}"></option>
+                    </select>
+                    <p th:if="${#fields.hasErrors('brandName')}"
+                       class="errors text-danger" th:errors="*{brandName}">
+                    </p>
+                </div>
+
+                <!--                Here is the GTIN of the product-->
+                <div class="form-group d-flex flex-column col-md-8 mb-3">
+                    <label for="gtin" class="text-dark form-required">Баркод на продукта</label>
+                    <input id="gtin"
+                           th:field="*{gtin}"
+                           name="gtin" type="text"
+                           placeholder="Напишете баркода на продукта тук..." required>
+                    <p th:if="${#fields.hasErrors('gtin')}"
+                       class="errors text-danger" th:errors="*{gtin}">
+                    </p>
+                </div>
+
+                <!--                Here is the code of the product-->
+                <div class="form-group d-flex flex-column col-md-8 mb-3">
+                    <label for="code" class="text-dark form-required">Вътрешен код на продукта</label>
+                    <input id="code"
+                           th:field="*{code}"
+                           name="code" type="text"
+                           placeholder="Напишете вътрешния код на продукта тук..." required>
+                    <p th:if="${#fields.hasErrors('code')}"
+                       class="errors text-danger" th:errors="*{code}">
+                    </p>
+                </div>
+
+                <!--                Here is the color of the product-->
+                <div class="form-group d-flex flex-column col-md-8 mb-3">
+                    <label for="color" class="text-dark form-required">Цвят на продукта</label>
+                    <input id="color"
+                           th:field="*{color}"
+                           name="color" type="color"
+                           required>
+                    <p th:if="${#fields.hasErrors('color')}"
+                       class="errors text-danger" th:errors="*{color}">
+                    </p>
+                </div>
+
+                <!--                Here is a drop-down menu with all categories-->
+                <div class="form-group d-flex flex-column col-md-8 mb-3">
+                    <label for="category" class="text-dark form-required">Категория</label>
+                    <select id="category"
+                            th:field="*{category}"
+                            class="form-control"
+                            onchange="loadProductGroups(this.value)"required>
+                        <option value="">- Изберете категория -</option>
+                        <option th:each="category : ${categories}"
+                                th:value="${category.getCategoriesEnum().name()}"
+                                th:text="${category.getCategoriesEnum().name()}"></option>
+                    </select>
+                    <p th:if="${#fields.hasErrors('category')}"
+                       class="errors text-danger" th:errors="*{category}">
+                    </p>
+                </div>
+
+                <!--                Here is a drop-down menu with product groups-->
+                <div class="form-group d-flex flex-column col-md-8 mb-3">
+                    <label for="productGroup" class="text-dark form-required">Група на продукта</label>
+                    <select id="productGroup"
+                            th:field="*{productGroup}"
+                            class="form-control" required>
+                        <option value="">- Изберете група на продукта -</option>
+                    </select>
+                    <p th:if="${#fields.hasErrors('productGroup')}"
+                       class="errors text-danger" th:errors="*{productGroup}">
+                    </p>
+                </div>
+
+                <!--                Here is the URL for the first image of the product-->
+                <div class="form-group d-flex flex-column col-md-8 mb-3">
+                    <label for="imageUrlOne" class="text-dark form-required">Първа снимка на продукта</label>
+                    <input id="imageUrlOne"
+                           th:field="*{imageUrlOne}"
+                           name="imageUrlOne" type="url"
+                           placeholder="Поставете линк към първата снимка на продукта тук..." required>
+                    <p th:if="${#fields.hasErrors('imageUrlOne')}"
+                       class="errors text-danger" th:errors="*{imageUrlOne}">
+                    </p>
+                </div>
+
+                <!--                Here is the URL for the second image of the product-->
+                <div class="form-group d-flex flex-column col-md-8 mb-3">
+                    <label for="imageUrlTwo" class="text-dark form-required">Втора снимка на продукта</label>
+                    <input id="imageUrlTwo"
+                           th:field="*{imageUrlTwo}"
+                           name="imageUrlTwo" type="url"
+                           placeholder="Поставете линк към втората снимка на продукта тук..." required>
+                    <p th:if="${#fields.hasErrors('imageUrlTwo')}"
+                       class="errors text-danger" th:errors="*{imageUrlTwo}">
+                    </p>
+                </div>
+
+                <!--                Here is the description of the product-->
+                <div class="form-group d-flex flex-column col-md-8 mb-3">
+                    <label for="descriptionOfTheProduct" class="text-dark form-required">Описание на продукта</label>
+                    <input id="descriptionOfTheProduct"
+                           th:field="*{descriptionOfTheProduct}"
+                           name="descriptionOfTheProduct" type="text"
+                           placeholder="Напишете описанието на продукта тук..." required>
+                    <p th:if="${#fields.hasErrors('descriptionOfTheProduct')}"
+                       class="errors text-danger" th:errors="*{descriptionOfTheProduct}">
+                    </p>
+                </div>
+
+                <!--                Here is the care and ingredients of the product-->
+                <div class="form-group d-flex flex-column col-md-8 mb-3">
+                    <label for="careAndIngredients" class="text-dark form-required">Грижа и състав</label>
+                    <input id="careAndIngredients"
+                           th:field="*{careAndIngredients}"
+                           name="careAndIngredients" type="text"
+                           placeholder="Напишете състава и грижата за продукта тук..." required>
+                    <p th:if="${#fields.hasErrors('careAndIngredients')}"
+                       class="errors text-danger" th:errors="*{careAndIngredients}">
+                    </p>
+                </div>
+
+                <!--                Here is the size of the product-->
+                <div class="form-group d-flex flex-column col-md-8 mb-3">
+                    <label for="size" class="text-dark form-required">Размер на продукта</label>
+                    <select id="size"
+                            th:field="*{size}"
+                            class="form-control" required>
+                        <option value="">- Изберете размер на продукта -</option>
+                        <option th:each="sizeL : ${sizesList}"
+                                th:value="${sizeL}"
+                                th:text="${sizeL}"></option>
+                    </select>
+                    <p th:if="${#fields.hasErrors('size')}"
+                       class="errors text-danger" th:errors="*{size}">
+                    </p>
+                </div>
+
+                <!--                Here is the quantity of the product-->
+                <div class="form-group d-flex flex-column col-md-8 mb-3">
+                    <label for="quantityOfTheProduct" class="text-dark form-required">Наличие на продукта</label>
+                    <input id="quantityOfTheProduct"
+                           th:field="*{quantityOfTheProduct}"
+                           name="quantityOfTheProduct" type="number"
+                           placeholder="Напишете наличието на продукта тук..." required>
+                    <p th:if="${#fields.hasErrors('quantityOfTheProduct')}"
+                       class="errors text-danger" th:errors="*{quantityOfTheProduct}">
+                    </p>
+                </div>
+
+                <!--                Here is the price of the product in BGN-->
+                <div class="form-group d-flex flex-column col-md-8 mb-3">
+                    <label for="priceInBGN" class="text-dark form-required">Редовна цена на продукта</label>
+                    <input id="priceInBGN"
+                           th:field="*{priceInBGN}"
+                           name="priceInBGN" type="text"
+                           placeholder="Напишете редовната цена на продукта тук..." required>
+                    <p th:if="${#fields.hasErrors('priceInBGN')}"
+                       class="errors text-danger" th:errors="*{priceInBGN}">
+                    </p>
+                </div>
+
+                <!--                Here is the checkbox that represents if the product is for sale or not-->
+                <div class="form-group d-flex flex-column col-md-8 mb-3">
+                    <label for="forSale" class="text-dark form-required">Намален</label>
+                    <input id="forSale"
+                           th:field="*{forSale}"
+                           name="forSale" type="checkbox" required>
+                    <p th:if="${#fields.hasErrors('forSale')}"
+                       class="errors text-danger" th:errors="*{forSale}">
+                    </p>
+                </div>
+
+                <!--                Here is the discount percentage of the product when it is for sale-->
+                <div class="form-group d-flex flex-column col-md-8 mb-3">
+                    <label for="discountPercentage" class="text-dark form-required">Процент намаление</label>
+                    <input id="discountPercentage"
+                           th:field="*{discountPercentage}"
+                           name="discountPercentage" type="text"
+                           placeholder="Напишете процента на намаление на продукта тук..." required>
+                    <p th:if="${#fields.hasErrors('discountPercentage')}"
+                       class="errors text-danger" th:errors="*{discountPercentage}">
+                    </p>
+                </div>
+
+                <div class="col col-md-2">
+                    <div class="button-holder">
+                        <input type="submit" class="btn btn-info bg-dark text-white btn-lg"
+                               value="Добавяне на продукт">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</main>
+
+<footer th:replace="~{fragments/footer}">
+</footer>
+</body>
+
+<script>
+    async function loadProductGroups(category) {
+        if (!category) return;
+
+        const response = await fetch(`/api/categories/${category}/groups`);
+        const offices = await response.json();
+
+        const officeSelect = document.getElementById("productGroup");
+        officeSelect.innerHTML = "";
+        const option = document.createElement("option");
+        option.text = "- Изберете група на продукта -";
+        option.value = "- Изберете група на продукта -";
+        officeSelect.appendChild(option);
+
+        offices.forEach(productGroup => {
+            const option = document.createElement("option");
+            option.value = productGroup;
+            option.textContent = productGroup;
+            officeSelect.appendChild(option);
+        });
+    }
+</script>
+</html>

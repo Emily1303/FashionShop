@@ -1,6 +1,5 @@
 package com.example.fashionshop.controllers;
 
-import com.example.fashionshop.models.entities.ProductGroups;
 import com.example.fashionshop.services.ProductGroupsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,7 +21,7 @@ public class BoysProductsController {
             model.addAttribute("boysProducts", productGroupsService.getAllProductGroupsForBoysCategory());
         }
 
-        return "products-for-boys";
+        return "product-groups-for-boys";
     }
 
     @GetMapping("/home/МОМЧЕТА")
@@ -32,7 +31,7 @@ public class BoysProductsController {
             model.addAttribute("boysProducts", productGroupsService.getAllProductGroupsForBoysCategory());
         }
 
-        return "products-for-boys";
+        return "product-groups-for-boys";
     }
 
 }

@@ -46,4 +46,10 @@ public class CategoriesServiceImpl implements CategoriesService {
 
     }
 
+    @Override
+    public List<Categories> getAllCategoriesNames() {
+
+        return categoriesRepository.findAll();
+    }
+
 }
